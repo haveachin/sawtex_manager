@@ -57,6 +57,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       state = LoggedIn(response.body);
     } on Response<ApiError> catch (response) {
       state = LoginFailed(response.body);
+    } on Exception catch (_) {
+      final err = ApiError(
+        (b) => b
+          ..status = 503
+          ..timestamp = DateTime.now().millisecondsSinceEpoch
+          ..message = "Could not reach ${authApiService.client.baseUrl}",
+      );
+
+      state = LoginFailed(err);
     }
 
     return state;

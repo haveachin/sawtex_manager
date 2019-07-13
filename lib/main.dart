@@ -9,6 +9,7 @@ import 'models/token.dart';
 import 'ui/activity/page.dart';
 import 'ui/city/page.dart';
 import 'ui/auth/page.dart';
+import 'ui/user/page.dart';
 
 void main() async {
   //debugPaintSizeEnabled = true;
@@ -55,6 +56,7 @@ class MyApp extends StatelessWidget {
         '/auth': (BuildContext context) => AuthPage(),
         '/activity': (BuildContext context) => ActivityPage(),
         '/city': (BuildContext context) => CityPage(),
+        '/cityv2': (BuildContext context) => UserPage(),
       },
     );
   }

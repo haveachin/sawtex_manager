@@ -11,7 +11,7 @@ part 'api_error.g.dart';
 
 abstract class ApiError implements Built<ApiError, ApiErrorBuilder> {
   int get status;
-  String get error;
+  String get message;
   int get timestamp;
 
   ApiError._();

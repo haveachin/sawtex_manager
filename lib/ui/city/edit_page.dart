@@ -129,7 +129,7 @@ class _CityEditPageState extends State<CityEditPage> {
               children: <Widget>[
                 if (state is ActionFailed)
                   Text(
-                    state.error.error,
+                    state.error.message,
                     style: TextStyle(color: Colors.red),
                   ),
                 Padding(

@@ -17,7 +17,7 @@ class ApiErrorConverter extends ErrorConverter {
     } on FormatException catch (e) {
       body = ApiError((b) => b
         ..status = response.statusCode
-        ..error = '${response.statusCode}: ${e.message}'
+        ..message = '${response.statusCode}: ${e.message}'
         ..timestamp = 0);
     }
 

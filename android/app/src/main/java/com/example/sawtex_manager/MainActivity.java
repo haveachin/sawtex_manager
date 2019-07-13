@@ -1,4 +1,4 @@
-package com.example.sawtex_manager;
+package de.haveachin.sawtex_manager;
 
 import android.os.Bundle;
 import io.flutter.app.FlutterActivity;

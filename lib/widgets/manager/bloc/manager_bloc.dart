@@ -5,19 +5,20 @@ import 'package:chopper/chopper.dart';
 import 'package:sawtex_manager/models/api_error.dart';
 
 import 'bloc.dart';
+import 'manager_model.dart';
 import 'service.dart';
 
-class BasicBloc<T> extends Bloc<BasicEvent, BasicState> {
+class ManagerBloc<T extends ManagerModel> extends Bloc<ManagerEvent, ManagerState> {
   final ApiService<T> apiService;
 
-  BasicBloc(this.apiService);
+  ManagerBloc(this.apiService);
   
   @override
-  BasicState get initialState => InitialBasicState();
+  ManagerState get initialState => InitialBasicState();
 
   @override
-  Stream<BasicState> mapEventToState(
-    BasicEvent event,
+  Stream<ManagerState> mapEventToState(
+    ManagerEvent event,
   ) async* {
     if (event is AddOne) {
       yield AddingOne();
@@ -30,15 +31,15 @@ class BasicBloc<T> extends Bloc<BasicEvent, BasicState> {
       yield await _getMany();
     } else if (event is UpdateOne) {
       yield UpdatingOne();
-      yield await _updateOne(event.id, event.item);
+      yield await _updateOne(event.item);
     } else if (event is DeleteOne) {
       yield DeletingOne();
       yield await _deleteOne(event.id);
     }
   }
 
-  Future<BasicState> _addOne(T item) async {
-    BasicState state;
+  Future<ManagerState> _addOne(T item) async {
+    ManagerState state;
 
     try {
       await apiService.postOne(item);
@@ -50,8 +51,8 @@ class BasicBloc<T> extends Bloc<BasicEvent, BasicState> {
     return state;
   }
 
-  Future<BasicState> _getOne(String id) async {
-    BasicState state;
+  Future<ManagerState> _getOne(String id) async {
+    ManagerState state;
 
     try {
       final response = await apiService.getOne(id);
@@ -63,8 +64,8 @@ class BasicBloc<T> extends Bloc<BasicEvent, BasicState> {
     return state;
   }
 
-  Future<BasicState> _getMany() async {
-    BasicState state;
+  Future<ManagerState> _getMany() async {
+    ManagerState state;
 
     try {
       final response = await apiService.getMany();
@@ -76,11 +77,11 @@ class BasicBloc<T> extends Bloc<BasicEvent, BasicState> {
     return state;
   }
 
-  Future<BasicState> _updateOne(String id, T item) async {
-    BasicState state;
+  Future<ManagerState> _updateOne(T item) async {
+    ManagerState state;
 
     try {
-      await apiService.putOne(id, item);
+      await apiService.putOne(item.id, item);
       state = UpdatedOne();
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
@@ -89,8 +90,8 @@ class BasicBloc<T> extends Bloc<BasicEvent, BasicState> {
     return state;
   }
 
-  Future<BasicState> _deleteOne(String id) async {
-    BasicState state;
+  Future<ManagerState> _deleteOne(String id) async {
+    ManagerState state;
 
     try {
       await apiService.deleteOne(id);

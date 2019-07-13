@@ -31,6 +31,7 @@ class _AuthPageState extends State<AuthPage> {
         if (value.isEmpty || value.length < 4) {
           return 'Username is required';
         }
+        return null;
       },
       onSaved: (String value) {
         _formData.username = value;
@@ -45,9 +46,10 @@ class _AuthPageState extends State<AuthPage> {
         labelText: AppLocalizations.of(context).translate('password'),
       ),
       validator: (String value) {
-        if (value.isEmpty || value.length < 10) {
+        if (value.isEmpty || value.length < 0) {
           return 'Password is required';
         }
+        return null;
       },
       onSaved: (String value) {
         _formData.password = value;

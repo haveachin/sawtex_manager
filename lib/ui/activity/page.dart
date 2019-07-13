@@ -27,6 +27,13 @@ class _ActivityPageState extends State<ActivityPage> {
                 Navigator.pushNamed(context, '/city');
               },
             ),
+            ListTile(
+              leading: Icon(Icons.location_city),
+              title: Text('City v2'),
+              onTap: () async {
+                Navigator.pushNamed(context, '/cityv2');
+              },
+            ),
             Flexible(
               child: Container(),
             ),
@@ -34,7 +41,8 @@ class _ActivityPageState extends State<ActivityPage> {
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
               onTap: () async {
-                await FlutterSecureStorage().delete(key: Token.secureStorageKey);
+                await FlutterSecureStorage()
+                    .delete(key: Token.secureStorageKey);
                 Navigator.pushReplacementNamed(context, '/auth');
               },
             ),

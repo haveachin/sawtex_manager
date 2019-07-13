@@ -8,6 +8,10 @@ import 'built_value_converter.dart';
 import 'city_api_service.dart';
 
 class ApiClients {
+  static final String protocol = 'http';
+  static final String address = '192.168.2.30:8080';
+  static final int version = 1;
+
   static ChopperClient _login, _authorized;
 
   static ChopperClient get login => _login;
@@ -15,7 +19,7 @@ class ApiClients {
 
   static Future init() async {
     _login = ChopperClient(
-      baseUrl: 'http://192.168.2.30:8080',
+      baseUrl: '$protocol://$address',
       services: [
         AuthApiService.create(),
       ],
@@ -29,7 +33,7 @@ class ApiClients {
 
   static void authorize(String token) {
     _authorized = ChopperClient(
-      baseUrl: 'http://192.168.2.30:8080/v1',
+      baseUrl: '$protocol://$address/v$version',
       services: [
         CityApiService.create(),
       ],

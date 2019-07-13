@@ -1,30 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:sawtex_manager/bloc/basic/basic_bloc.dart';
-import 'package:sawtex_manager/bloc/basic/service.dart';
-import 'package:sawtex_manager/service/api_clients.dart';
 
-import '../list_dismissible.dart';
+import 'bloc/manager_model.dart';
 import 'edit_page.dart';
 import 'list_page.dart';
 
-class ManagerPage<T> extends StatefulWidget {
+class ManagerPage<T extends ManagerModel> extends StatefulWidget {
   final String title;
-  final ApiService<T> apiService;
-  final Widget Function(BuildContext, T, Map<String, dynamic>) buildFrom;
-  final ListDismissible Function(BuildContext, int) buildListDismissible;
+  final ManagerEditPage<T> editPage;
+  final ManagerListPage<T> listPage;
 
   ManagerPage({
     Key key,
     this.title,
-    this.apiService,
-    this.buildFrom,
-    this.buildListDismissible,
+    this.editPage,
+    this.listPage,
   }) : super(key: key);
 
-  _ManagerPageState createState() => _ManagerPageState<T>();
+  _ManagerPageState createState() => _ManagerPageState();
 }
 
-class _ManagerPageState<T> extends State<ManagerPage<T>> {
+class _ManagerPageState extends State<ManagerPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -47,14 +42,8 @@ class _ManagerPageState<T> extends State<ManagerPage<T>> {
         ),
         body: TabBarView(
           children: <Widget>[
-            ManagerEditPage<T>(
-              bloc: BasicBloc<T>(widget.apiService),
-              buildFrom: widget.buildFrom,
-            ),
-            ManagerListPage<T>(
-              bloc: BasicBloc<T>(widget.apiService),
-              buildListDismissible: widget.buildListDismissible,
-            ),
+            widget.editPage,
+            widget.listPage,
           ],
         ),
       ),

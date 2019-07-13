@@ -1,6 +1,3 @@
-import 'dart:async';
-
-import 'package:built_collection/built_collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawtex_manager/models/city.dart';
@@ -18,37 +15,46 @@ class CityListPage extends StatefulWidget {
 
 class _CityListPageState extends State<CityListPage> {
   final _cityBloc = CityBloc();
+  List<City> _cities = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _cityBloc.dispatch(GetCities());
+  }
 
   Widget _buildEditButton(BuildContext context, City city) {
     return IconButton(
       icon: Icon(Icons.edit),
-      onPressed: () => Navigator.of(context).push(
+      onPressed: () => Navigator.of(context)
+          .push(
             MaterialPageRoute(
               builder: (BuildContext context) => CityEditPage(city: city),
             ),
-          ),
+          )
+          .whenComplete(() => _cityBloc.dispatch(GetCities())),
     );
   }
 
-  Widget _buildListView(BuiltList<City> cities) {
+  Widget _buildListView() {
     return RefreshIndicator(
       onRefresh: () async => _cityBloc.dispatch(GetCities()),
       child: ListView.separated(
-        itemCount: cities.length,
+        itemCount: _cities.length,
         separatorBuilder: (BuildContext context, int index) => Divider(),
         itemBuilder: (BuildContext context, int index) {
           return ListDismissible(
-            key: Key(cities[index].id),
+            key: Key(_cities[index].id),
             onDismissed: () {
-              _cityBloc.dispatch(DeleteCity(cities[index].id));
-              _cityBloc.dispatch(GetCities());
+              _cityBloc.dispatch(DeleteCity(_cities[index].id));
+              _cities.removeAt(index);
             },
             child: ListTile(
               leading: Icon(Icons.location_city),
-              title: Text(cities[index].name),
-              subtitle:
-                  Text('${cities[index].state}, ${cities[index].countryCode}'),
-              trailing: _buildEditButton(context, cities[index]),
+              title: Text(_cities[index].name),
+              subtitle: Text(
+                  '${_cities[index].state}, ${_cities[index].countryCode}'),
+              trailing: _buildEditButton(context, _cities[index]),
             ),
           );
         },
@@ -58,25 +64,20 @@ class _CityListPageState extends State<CityListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener(
+    return BlocBuilder(
       bloc: _cityBloc,
-      listener: (BuildContext context, CityState state) {
-        if (state is CityInitial) {
-          _cityBloc.dispatch(GetCities());
-        }
-      },
-      child: BlocBuilder(
-        bloc: _cityBloc,
-        builder: (BuildContext context, CityState state) {
-          if (state is CitiesLoaded) {
-            return _buildListView(state.cities);
-          }
-
+      builder: (BuildContext context, CityState state) {
+        if (state is CitiesLoaded) {
+          _cities = state.cities.toList();
+          return _buildListView();
+        } else if (state is LoadingCities) {
           return Center(
             child: CircularProgressIndicator(),
           );
-        },
-      ),
+        }
+
+        return _buildListView();
+      },
     );
   }
 

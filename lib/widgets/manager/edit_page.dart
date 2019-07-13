@@ -1,25 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sawtex_manager/bloc/basic/bloc.dart';
 
-class ManagerEditPage<T> extends StatefulWidget {
+import 'bloc/bloc.dart';
+import 'bloc/manager_model.dart';
+import 'bloc/service.dart';
+
+class ManagerEditPage<T extends ManagerModel> extends StatefulWidget {
   final T item;
-  final BasicBloc<T> bloc;
+  final ApiService apiService;
   final Widget Function(BuildContext, T, Map<String, dynamic>) buildFrom;
 
   ManagerEditPage({
     Key key,
     this.item,
-    @required this.bloc,
+    @required this.apiService,
     @required this.buildFrom,
   }) : super(key: key);
 
-  _ManagerEditPageState createState() => _ManagerEditPageState();
+  _ManagerEditPageState<T> createState() => _ManagerEditPageState<T>();
 }
 
-class _ManagerEditPageState extends State<ManagerEditPage> {
+class _ManagerEditPageState<T extends ManagerModel> extends State<ManagerEditPage<T>> {
   final Map<String, dynamic> _formData = {};
   final _formKey = GlobalKey<FormState>();
+  ManagerBloc<T> _bloc;
+
+  @override
+  void initState() { 
+    super.initState();
+    _bloc = ManagerBloc<T>(widget.apiService);
+    _formData['id'] = widget.item?.id;
+  }
 
   Widget _buildCityForm(BuildContext context) {
     return Form(
@@ -35,10 +46,12 @@ class _ManagerEditPageState extends State<ManagerEditPage> {
         if (!_formKey.currentState.validate()) return;
         _formKey.currentState.save();
 
+        print(_formData);
+
         if (widget?.item == null) {
-          widget.bloc.dispatch(AddOne.fromMap(_formData));
+          _bloc.dispatch(AddOne<T>.fromMap(_formData));
         } else {
-          widget.bloc.dispatch(UpdateOne.fromMap(widget?.item?.id, _formData));
+          _bloc.dispatch(UpdateOne<T>.fromMap(_formData));
         }
       },
     );
@@ -48,13 +61,13 @@ class _ManagerEditPageState extends State<ManagerEditPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: BlocBuilder(
-        bloc: widget.bloc,
-        builder: (BuildContext context, BasicState state) {
+        bloc: _bloc,
+        builder: (BuildContext context, ManagerState state) {
           return ListView(
             children: <Widget>[
               if (state is ActionFailed)
                 Text(
-                  state.error.error,
+                  state.error.message,
                   style: TextStyle(color: Colors.red),
                 ),
               Padding(
@@ -83,8 +96,8 @@ class _ManagerEditPageState extends State<ManagerEditPage> {
               title: Text('Editing'),
             ),
             body: BlocListener(
-              bloc: widget.bloc,
-              listener: (BuildContext context, BasicState state) {
+              bloc: _bloc,
+              listener: (BuildContext context, ManagerState state) {
                 if (state is UpdatedOne) {
                   Navigator.pop(context);
                 }
@@ -95,7 +108,7 @@ class _ManagerEditPageState extends State<ManagerEditPage> {
 
   @override
   void dispose() {
-    widget.bloc.dispose();
+    _bloc.dispose();
     super.dispose();
   }
 }

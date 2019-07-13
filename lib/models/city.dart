@@ -4,12 +4,13 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:sawtex_manager/widgets/manager/bloc/manager_model.dart';
 
 import 'serializers.dart';
 
 part 'city.g.dart';
 
-abstract class City implements Built<City, CityBuilder> {
+abstract class City implements Built<City, CityBuilder>, ManagerModel  {
   @nullable
   String get id;
   String get name;

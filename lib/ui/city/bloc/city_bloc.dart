@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:chopper/chopper.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sawtex_manager/models/api_error.dart';
 import 'package:sawtex_manager/models/city.dart';
-import 'package:sawtex_manager/models/token.dart';
 import 'package:sawtex_manager/service/api_clients.dart';
 import 'package:sawtex_manager/service/city_api_service.dart';
 
