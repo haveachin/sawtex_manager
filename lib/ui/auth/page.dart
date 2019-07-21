@@ -74,24 +74,20 @@ class _AuthPageState extends State<AuthPage> {
         child: BlocBuilder(
           bloc: _authBloc,
           builder: (BuildContext context, AuthState state) {
-            double errorMessageOpacity = 0.0;
             if (state is LoggingIn) {
               return Padding(
                 padding: EdgeInsets.all(3.0),
                 child: CircularProgressIndicator(),
               );
-            } else if (state is LoginFailed) {
-              errorMessageOpacity = 1.0;
             }
+
             return Column(
               children: <Widget>[
-                Opacity(
-                  opacity: errorMessageOpacity,
-                  child: Text(
-                    'Username or password is incorrect',
+                if (state is LoginFailed)
+                  Text(
+                    state.error.message,
                     style: TextStyle(color: Colors.red),
                   ),
-                ),
                 _buildUsernameTextField(context),
                 SizedBox(height: 16.0),
                 _buildPasswordTextField(context),

@@ -61,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final err = ApiError(
         (b) => b
           ..status = 503
-          ..timestamp = DateTime.now().millisecondsSinceEpoch
+          ..timestamp = DateTime.now().toUtc()
           ..message = "Could not reach ${authApiService.client.baseUrl}",
       );
 

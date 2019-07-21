@@ -75,7 +75,7 @@ class _ManagerListPageState<T extends ManagerModel>
     return BlocListener(
       bloc: _bloc,
       listener: (BuildContext context, ManagerState state) {
-        if (state is InitialBasicState) {
+        if (state is InitialState) {
           _bloc.dispatch(GetMany());
         } else if (state is LoadedMany) {
           _items = state.items.toList();

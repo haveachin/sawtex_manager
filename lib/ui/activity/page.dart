@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:sawtex_manager/models/token.dart';
+import 'package:sawtex_manager/widgets/form_fields/city_form_field.dart';
 
 class ActivityPage extends StatefulWidget {
   @override
@@ -23,16 +24,22 @@ class _ActivityPageState extends State<ActivityPage> {
             ListTile(
               leading: Icon(Icons.location_city),
               title: Text('City'),
-              onTap: () async {
-                Navigator.pushNamed(context, '/city');
-              },
+              onTap: () async => Navigator.pushNamed(context, '/city'),
             ),
             ListTile(
-              leading: Icon(Icons.location_city),
-              title: Text('City v2'),
-              onTap: () async {
-                Navigator.pushNamed(context, '/cityv2');
-              },
+              leading: Icon(Icons.people),
+              title: Text('User'),
+              onTap: () async => Navigator.pushNamed(context, '/user'),
+            ),
+            ListTile(
+              leading: Icon(Icons.content_paste),
+              title: Text('Role'),
+              onTap: () async => Navigator.pushNamed(context, '/roles'),
+            ),
+            ListTile(
+              leading: Icon(Icons.filter_none),
+              title: Text('Size Choice'),
+              onTap: () async => Navigator.pushNamed(context, '/size-choices'),
             ),
             Flexible(
               child: Container(),
@@ -53,7 +60,7 @@ class _ActivityPageState extends State<ActivityPage> {
         title: Text('Activities'),
       ),
       body: Center(
-        child: Text('Welcome to the activity page'),
+        child: CityFormField(),
       ),
     );
   }

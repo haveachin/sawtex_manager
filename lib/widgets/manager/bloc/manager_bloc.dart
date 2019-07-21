@@ -14,7 +14,7 @@ class ManagerBloc<T extends ManagerModel> extends Bloc<ManagerEvent, ManagerStat
   ManagerBloc(this.apiService);
   
   @override
-  ManagerState get initialState => InitialBasicState();
+  ManagerState get initialState => InitialState();
 
   @override
   Stream<ManagerState> mapEventToState(

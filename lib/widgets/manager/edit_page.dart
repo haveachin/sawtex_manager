@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sawtex_manager/models/serializers.dart';
 
 import 'bloc/bloc.dart';
 import 'bloc/manager_model.dart';
@@ -20,26 +23,31 @@ class ManagerEditPage<T extends ManagerModel> extends StatefulWidget {
   _ManagerEditPageState<T> createState() => _ManagerEditPageState<T>();
 }
 
-class _ManagerEditPageState<T extends ManagerModel> extends State<ManagerEditPage<T>> {
-  final Map<String, dynamic> _formData = {};
+class _ManagerEditPageState<T extends ManagerModel>
+    extends State<ManagerEditPage<T>> {
+  Map<String, dynamic> _formData = {};
   final _formKey = GlobalKey<FormState>();
   ManagerBloc<T> _bloc;
 
   @override
-  void initState() { 
+  void initState() {
     super.initState();
     _bloc = ManagerBloc<T>(widget.apiService);
-    _formData['id'] = widget.item?.id;
+
+    if (widget?.item == null) return;
+
+    _formData = serializers.serializeWith(
+        serializers.serializerForType(T), widget.item);
   }
 
-  Widget _buildCityForm(BuildContext context) {
+  Widget _buildForm(BuildContext context) {
     return Form(
       key: _formKey,
       child: widget.buildFrom(context, widget.item, _formData),
     );
   }
 
-  Widget _buildAddButton(BuildContext context) {
+  Widget _buildSubmitButton(BuildContext context) {
     return MaterialButton(
       child: Text((widget?.item == null) ? 'ADD' : 'SAVE'),
       onPressed: () {
@@ -66,20 +74,24 @@ class _ManagerEditPageState<T extends ManagerModel> extends State<ManagerEditPag
           return ListView(
             children: <Widget>[
               if (state is ActionFailed)
-                Text(
-                  state.error.message,
-                  style: TextStyle(color: Colors.red),
+                Container(
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.symmetric(vertical: 10.0),
+                  child: Text(
+                    "${state.error.status}: ${state.error.message}",
+                    style: TextStyle(color: Colors.red),
+                  ),
                 ),
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: _buildCityForm(context),
+                child: _buildForm(context),
               ),
               (state is AddingOne || state is UpdatingOne)
                   ? Padding(
                       padding: EdgeInsets.all(3.0),
                       child: CircularProgressIndicator(),
                     )
-                  : _buildAddButton(context),
+                  : _buildSubmitButton(context),
             ],
           );
         },

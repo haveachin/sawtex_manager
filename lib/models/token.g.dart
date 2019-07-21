@@ -21,13 +21,11 @@ class _$TokenSerializer implements StructuredSerializer<Token> {
       'token',
       serializers.serialize(object.token,
           specifiedType: const FullType(String)),
+      'expiresAt',
+      serializers.serialize(object.expiresAt,
+          specifiedType: const FullType(DateTime)),
     ];
-    if (object.expiresAt != null) {
-      result
-        ..add('expiresAt')
-        ..add(serializers.serialize(object.expiresAt,
-            specifiedType: const FullType(int)));
-    }
+
     return result;
   }
 
@@ -48,7 +46,7 @@ class _$TokenSerializer implements StructuredSerializer<Token> {
           break;
         case 'expiresAt':
           result.expiresAt = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(DateTime)) as DateTime;
           break;
       }
     }
@@ -61,7 +59,7 @@ class _$Token extends Token {
   @override
   final String token;
   @override
-  final int expiresAt;
+  final DateTime expiresAt;
 
   factory _$Token([void Function(TokenBuilder) updates]) =>
       (new TokenBuilder()..update(updates)).build();
@@ -69,6 +67,9 @@ class _$Token extends Token {
   _$Token._({this.token, this.expiresAt}) : super._() {
     if (token == null) {
       throw new BuiltValueNullFieldError('Token', 'token');
+    }
+    if (expiresAt == null) {
+      throw new BuiltValueNullFieldError('Token', 'expiresAt');
     }
   }
 
@@ -108,9 +109,9 @@ class TokenBuilder implements Builder<Token, TokenBuilder> {
   String get token => _$this._token;
   set token(String token) => _$this._token = token;
 
-  int _expiresAt;
-  int get expiresAt => _$this._expiresAt;
-  set expiresAt(int expiresAt) => _$this._expiresAt = expiresAt;
+  DateTime _expiresAt;
+  DateTime get expiresAt => _$this._expiresAt;
+  set expiresAt(DateTime expiresAt) => _$this._expiresAt = expiresAt;
 
   TokenBuilder();
 

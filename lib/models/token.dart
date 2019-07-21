@@ -11,8 +11,7 @@ part 'token.g.dart';
 
 abstract class Token implements Built<Token, TokenBuilder> {
   String get token;
-  @nullable
-  int get expiresAt;
+  DateTime get expiresAt;
 
   static const String secureStorageKey = 'sawtex_api_token';
 

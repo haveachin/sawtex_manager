@@ -18,7 +18,7 @@ class ApiErrorConverter extends ErrorConverter {
       body = ApiError((b) => b
         ..status = response.statusCode
         ..message = '${response.statusCode}: ${e.message}'
-        ..timestamp = 0);
+        ..timestamp = DateTime.now().toUtc());
     }
 
     return Response<ApiError>(response.base, body);

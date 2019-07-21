@@ -10,30 +10,6 @@ part 'city_api_service.chopper.dart';
 @ChopperApi(baseUrl: '/cities')
 abstract class CityApiService extends ChopperService implements ApiService<City> {
   @Get(path: '/{id}')
-  Future<Response<City>> getCity(
-    @Path('id') String id,
-  );
-
-  @Get()
-  Future<Response<BuiltList<City>>> getCities();
-
-  @Post()
-  Future<Response<City>> postCity(
-    @Body() City city,
-  );
-
-  @Put(path: '/{id}')
-  Future<Response> putCity(
-    @Path('id') String id,
-    @Body() City city,
-  );
-
-  @Delete(path: '/{id}')
-  Future<Response> deleteCity(
-    @Path('id') String id,
-  );
-
-  @Get(path: '/{id}')
   Future<Response<City>> getOne(
     @Path('id') String id,
   );

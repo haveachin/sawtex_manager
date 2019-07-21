@@ -9,7 +9,7 @@ import 'city_api_service.dart';
 
 class ApiClients {
   static final String protocol = 'http';
-  static final String address = '192.168.2.30:8080';
+  static final String address = '192.168.2.30:8080'; //192.168.2.30:8080
   static final int version = 1;
 
   static ChopperClient _login, _authorized;
@@ -24,7 +24,7 @@ class ApiClients {
         AuthApiService.create(),
       ],
       converter: BuiltValueConverter(),
-      errorConverter: ApiErrorConverter(),
+      errorConverter: BuiltValueConverter(),
     );
 
     final token = await FlutterSecureStorage().read(key: Token.secureStorageKey);
@@ -38,7 +38,7 @@ class ApiClients {
         CityApiService.create(),
       ],
       converter: BuiltValueConverter(),
-      errorConverter: ApiErrorConverter(),
+      errorConverter: BuiltValueConverter(),
       interceptors: [
         HeadersInterceptor({'Authorization': 'Bearer $token'}),
       ],

@@ -1,47 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'city_api_service.dart';
+part of 'role_api_service.dart';
 
 // **************************************************************************
 // ChopperGenerator
 // **************************************************************************
 
-class _$CityApiService extends CityApiService {
-  _$CityApiService([ChopperClient client]) {
+class _$RoleApiService extends RoleApiService {
+  _$RoleApiService([ChopperClient client]) {
     if (client == null) return;
     this.client = client;
   }
 
-  final definitionType = CityApiService;
+  final definitionType = RoleApiService;
 
-  Future<Response<City>> getOne(String id) {
-    final $url = '/cities/${id}';
+  Future<Response<Role>> getOne(String id) {
+    final $url = '/roles/${id}';
     final $request = Request('GET', $url, client.baseUrl);
-    return client.send<City, City>($request);
+    return client.send<Role, Role>($request);
   }
 
-  Future<Response<BuiltList<City>>> getMany() {
-    final $url = '/cities';
+  Future<Response<BuiltList<Role>>> getMany() {
+    final $url = '/roles';
     final $request = Request('GET', $url, client.baseUrl);
-    return client.send<BuiltList<City>, City>($request);
+    return client.send<BuiltList<Role>, Role>($request);
   }
 
-  Future<Response<City>> postOne(City city) {
-    final $url = '/cities';
-    final $body = city;
+  Future<Response<Role>> postOne(Role role) {
+    final $url = '/roles';
+    final $body = role;
     final $request = Request('POST', $url, client.baseUrl, body: $body);
-    return client.send<City, City>($request);
+    return client.send<Role, Role>($request);
   }
 
-  Future<Response> putOne(String id, City city) {
-    final $url = '/cities/${id}';
-    final $body = city;
+  Future<Response> putOne(String id, Role role) {
+    final $url = '/roles/${id}';
+    final $body = role;
     final $request = Request('PUT', $url, client.baseUrl, body: $body);
     return client.send<dynamic, dynamic>($request);
   }
 
   Future<Response> deleteOne(String id) {
-    final $url = '/cities/${id}';
+    final $url = '/roles/${id}';
     final $request = Request('DELETE', $url, client.baseUrl);
     return client.send<dynamic, dynamic>($request);
   }

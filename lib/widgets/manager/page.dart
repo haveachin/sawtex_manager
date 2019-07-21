@@ -17,6 +17,8 @@ class ManagerPage<T extends ManagerModel> extends StatefulWidget {
   }) : super(key: key);
 
   _ManagerPageState createState() => _ManagerPageState();
+
+  void dispose(){}
 }
 
 class _ManagerPageState extends State<ManagerPage> {
@@ -48,5 +50,11 @@ class _ManagerPageState extends State<ManagerPage> {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() { 
+    widget.dispose();
+    super.dispose();
   }
 }

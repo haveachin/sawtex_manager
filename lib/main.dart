@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:sawtex_manager/service/api_clients.dart';
 
+import 'service/api_clients.dart';
+import 'ui/role/page.dart';
 import 'app_localizations.dart';
 import 'models/token.dart';
 import 'ui/activity/page.dart';
 import 'ui/city/page.dart';
 import 'ui/auth/page.dart';
+import 'ui/size_choice.dart/page.dart';
 import 'ui/user/page.dart';
 
 void main() async {
@@ -55,8 +57,10 @@ class MyApp extends StatelessWidget {
       routes: {
         '/auth': (BuildContext context) => AuthPage(),
         '/activity': (BuildContext context) => ActivityPage(),
-        '/city': (BuildContext context) => CityPage(),
-        '/cityv2': (BuildContext context) => UserPage(),
+        '/city': (BuildContext context) => CityManagerPage(),
+        '/user': (BuildContext context) => UserManagerPage(),
+        '/roles': (BuildContext context) => RoleManagerPage(),
+        '/size-choices': (BuildContext context) => SizeChoiceManagerPage(),
       },
     );
   }

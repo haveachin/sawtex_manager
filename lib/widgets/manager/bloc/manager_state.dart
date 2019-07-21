@@ -7,7 +7,7 @@ abstract class ManagerState extends Equatable {
   ManagerState([List props = const []]) : super(props);
 }
 
-class InitialBasicState extends ManagerState {}
+class InitialState extends ManagerState {}
 
 class AddingOne extends ManagerState {}
 

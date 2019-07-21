@@ -25,7 +25,7 @@ class _$ApiErrorSerializer implements StructuredSerializer<ApiError> {
           specifiedType: const FullType(String)),
       'timestamp',
       serializers.serialize(object.timestamp,
-          specifiedType: const FullType(int)),
+          specifiedType: const FullType(DateTime)),
     ];
 
     return result;
@@ -52,7 +52,7 @@ class _$ApiErrorSerializer implements StructuredSerializer<ApiError> {
           break;
         case 'timestamp':
           result.timestamp = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(DateTime)) as DateTime;
           break;
       }
     }
@@ -67,7 +67,7 @@ class _$ApiError extends ApiError {
   @override
   final String message;
   @override
-  final int timestamp;
+  final DateTime timestamp;
 
   factory _$ApiError([void Function(ApiErrorBuilder) updates]) =>
       (new ApiErrorBuilder()..update(updates)).build();
@@ -127,9 +127,9 @@ class ApiErrorBuilder implements Builder<ApiError, ApiErrorBuilder> {
   String get message => _$this._message;
   set message(String message) => _$this._message = message;
 
-  int _timestamp;
-  int get timestamp => _$this._timestamp;
-  set timestamp(int timestamp) => _$this._timestamp = timestamp;
+  DateTime _timestamp;
+  DateTime get timestamp => _$this._timestamp;
+  set timestamp(DateTime timestamp) => _$this._timestamp = timestamp;
 
   ApiErrorBuilder();
 
