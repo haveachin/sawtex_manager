@@ -18,12 +18,29 @@ abstract class ApiError implements Built<ApiError, ApiErrorBuilder> {
 
   factory ApiError([updates(ApiErrorBuilder b)]) = _$ApiError;
 
+  factory ApiError.couldNotReach(String host) {
+    return ApiError(
+      (b) => b
+        ..status = 503
+        ..timestamp = DateTime.now().toUtc()
+        ..message = "Could not reach $host.",
+    );
+  }
+
+  static final ApiError unkownResponse = ApiError(
+    (b) => b
+      ..status = 406
+      ..message = "Unknown response object, deserialization failed"
+      ..timestamp = DateTime.now().toUtc(),
+  );
+
   String toJson() {
     return json.encode(serializers.serializeWith(ApiError.serializer, this));
   }
 
   static ApiError fromJson(String jsonString) {
-    return serializers.deserializeWith(ApiError.serializer, json.decode(jsonString));
+    return serializers.deserializeWith(
+        ApiError.serializer, json.decode(jsonString));
   }
 
   static Serializer<ApiError> get serializer => _$apiErrorSerializer;

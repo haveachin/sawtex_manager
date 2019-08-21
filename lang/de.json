@@ -1,4 +1,14 @@
 {
-    "username": "Benutzername",
-    "password": "Passwort"
+    "auth.title": "Anmeldung",
+    "auth.loading": "Authentifiziere",
+    "auth.textField.username.hint": "Benutzername",
+    "auth.textField.password.hint": "Passwort",
+    "auth.button.login": "ANMELDEN",
+    
+    "validator.isRequired": "Feld wird benötigt",
+    "validator.matchRegExp": "Ungültiges Muster",
+    "validator.isISOCode": "Ungültiger ISO-Code",
+    "validator.isEmail": "Ungültige E-Mail",
+    "validator.isPort": "Ungültiger Port",
+    "validator.isIP": "Ungültige IP-Addresse"
 }

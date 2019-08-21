@@ -4,7 +4,7 @@ class CheckableExpansionTile extends StatefulWidget {
   final bool initialValue;
   final bool initiallyExpanded;
   final List<Widget> children;
-  final Function(bool) onChanged;
+  final void Function(bool) onChanged;
   final Widget title;
 
   CheckableExpansionTile({

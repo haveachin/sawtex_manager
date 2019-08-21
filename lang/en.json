@@ -1,5 +1,18 @@
 {
-    "username": "Username",
-    "password": "Password",
-    "login": "Login"
+    "auth.title": "Login",
+    "auth.loading": "Logging in",
+    "auth.textField.username.hint": "Username",
+    "auth.textField.password.hint": "Password",
+    "auth.button.login": "LOGIN",
+
+    "validator.username.pattern": "Username must only be alphanumeric",
+    "validator.username.min": "Username must be at least 5 characters long",
+    "validator.password.min": "Password must be at least 5 characters long",
+
+    "validator.isRequired": "This field is required",
+    "validator.matchRegExp": "Pattern did not match",
+    "validator.isISOCode": "Invalid ISO code",
+    "validator.isEmail": "Invalid e-mail address",
+    "validator.isPort": "Invalid port",
+    "validator.isIP": "Invalid ip address"
 }
