@@ -1,0 +1,33 @@
+{
+    "auth": {
+        "title": "Anmeldung",
+        "authenticating": "Authentifiziere",
+        "textField": {
+            "username": "Benutzername",
+            "password": "Passwort"
+        },
+        "checkBox": {
+            "rememberMe": "Angemeldet bleiben"
+        },
+        "button": {
+            "login": "ANMELDEN"
+        }
+    },
+    "validator": {
+        "username": {
+            "pattern": "Der Benutzername darf nur alphanumerisch sein",
+            "lenght": {
+                "min": "Der Benutzername muss mindestens 5 Zeichen lang sein"
+            }
+        },
+        "password": {
+            "lenght": {
+                "min": "Das Passwort muss mindestens 5 Zeichen lang sein"
+            }
+        },
+        "ip": "Ungültige IP-Addresse",
+        "port": "Ungültiger Port",
+        "email": "Ungültige E-Mail",
+        "isoCode": "Ungültiger ISO-Code"
+    }
+}

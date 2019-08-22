@@ -5,8 +5,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sawtex_manager/blocs/auth_bloc/bloc.dart';
 import 'package:sawtex_manager/models/token.dart';
 import 'package:sawtex_manager/utils/toasts.dart';
-
-import '../../app_localizations.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 
 class AuthPage extends StatefulWidget {
   final Token token;
@@ -42,7 +41,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildTitle(BuildContext context) {
     return Text(
-      AppLocalizations.of(context).translate('auth.title'),
+      Translation.of(context).authTitle,
       style: Theme.of(context).textTheme.title,
     );
   }
@@ -51,21 +50,18 @@ class _AuthPageState extends State<AuthPage> {
     return FormBuilderTextField(
       attribute: 'username',
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context)
-            .translate('auth.textField.username.hint'),
+        labelText: Translation.of(context).authTextFieldUsername,
         border: OutlineInputBorder(),
         prefixIcon: Icon(Icons.person),
       ),
       validators: [
         FormBuilderValidators.pattern(
           r'^[a-zA-Z0-9]{0,}$',
-          errorText: AppLocalizations.of(context)
-              .translate('validator.username.pattern'),
+          errorText: Translation.of(context).validatorUsernamePattern,
         ),
         FormBuilderValidators.minLength(
           5,
-          errorText:
-              AppLocalizations.of(context).translate('validator.username.min'),
+          errorText: Translation.of(context).validatorUsernameLenghtMin,
         ),
       ],
     );
@@ -76,8 +72,7 @@ class _AuthPageState extends State<AuthPage> {
       attribute: 'password',
       obscureText: obscurePassword,
       decoration: InputDecoration(
-        labelText: AppLocalizations.of(context)
-            .translate('auth.textField.password.hint'),
+        labelText: Translation.of(context).authTextFieldPassword,
         border: OutlineInputBorder(),
         prefixIcon: Icon(Icons.lock),
         suffixIcon: IconButton(
@@ -89,8 +84,7 @@ class _AuthPageState extends State<AuthPage> {
       validators: [
         FormBuilderValidators.minLength(
           5,
-          errorText:
-              AppLocalizations.of(context).translate('validator.password.min'),
+          errorText: Translation.of(context).validatorPasswordLenghtMin,
         ),
       ],
     );
@@ -99,11 +93,14 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildRememberMeCheckBox(BuildContext context) {
     return FormBuilderCheckbox(
       attribute: 'rememberMe',
-      label: Text(AppLocalizations.of(context).translate('auth.checkbox.rememberMe'),),
+      label: Text(
+        Translation.of(context).authCheckBoxRememberMe,
+      ),
       leadingInput: true,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.zero,
         border: InputBorder.none,
+        hoverColor: Colors.red,
       ),
     );
   }
@@ -111,7 +108,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildLoginButton(BuildContext context) {
     return RaisedButton(
       child: Text(
-        AppLocalizations.of(context).translate('auth.button.login'),
+        Translation.of(context).authButtonLogin,
       ),
       onPressed: () => _submitForm(context),
     );
@@ -153,7 +150,7 @@ class _AuthPageState extends State<AuthPage> {
           margin: EdgeInsets.only(bottom: 16.0),
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            AppLocalizations.of(context).translate('auth.loading'),
+            Translation.of(context).authAuthenticating,
             style: Theme.of(context).textTheme.title,
           ),
         ),
@@ -171,7 +168,7 @@ class _AuthPageState extends State<AuthPage> {
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
-        backgroundColor: Colors.white,
+        //backgroundColor: Colors.white,
         body: ListView(
           children: <Widget>[
             Container(
@@ -187,28 +184,28 @@ class _AuthPageState extends State<AuthPage> {
                   showErrorToast(state.error.message);
                 }
               },
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 16.0),
-                child: BlocBuilder(
-                  bloc: _authBloc,
-                  builder: (BuildContext context, AuthState state) {
-                    if (state is LoggingIn) {
-                      return _buildLoadingIndicator();
-                    }
+              child: Container(),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 16.0),
+              child: BlocBuilder(
+                bloc: _authBloc,
+                builder: (BuildContext context, AuthState state) {
+                  if (state is LoggingIn) {
+                    return _buildLoadingIndicator();
+                  }
 
-                    return Column(
-                      children: <Widget>[
-                        Container(
-                          alignment: Alignment.center,
-                          margin: EdgeInsets.only(bottom: 16.0),
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          child: _buildTitle(context),
-                        ),
-                        _buildLoginForm(context),
-                      ],
-                    );
-                  },
-                ),
+                  return Column(
+                    children: <Widget>[
+                      Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(bottom: 16.0),
+                        child: _buildTitle(context),
+                      ),
+                      _buildLoginForm(context),
+                    ],
+                  );
+                },
               ),
             ),
           ],

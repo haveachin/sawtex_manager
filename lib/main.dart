@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:oktoast/oktoast.dart';
 
-import 'app_localizations.dart';
 import 'models/token.dart';
 import 'pages/machine/page.dart';
 import 'services/api_clients.dart';
@@ -36,9 +35,13 @@ class MyApp extends StatelessWidget {
           Locale('de', 'DE'),
         ],
         localizationsDelegates: [
-          AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
+          FlutterI18nDelegate(
+            useCountryCode: true,
+            fallbackFile: 'assets/locales/en_US.json',
+            path: 'assets/locales',
+          ),
         ],
         localeResolutionCallback: _localeResolutionCallback,
         home: FutureBuilder(
@@ -49,7 +52,7 @@ class MyApp extends StatelessWidget {
                 child: CircularProgressIndicator(),
               );
             }
-            
+
             return AuthPage(token: snapshot.data);
           },
         ),

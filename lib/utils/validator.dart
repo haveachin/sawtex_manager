@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../app_localizations.dart';
+import 'package:flutter_i18n/flutter_i18n.dart';
 
 class Validator {
   static final RegExp isoCodeRegExp = RegExp(
@@ -14,37 +13,37 @@ class Validator {
 
   static String isRequired(BuildContext context, String value) {
     if (value.isEmpty)
-      return AppLocalizations.of(context).translate('validator.isRequired');
+      return FlutterI18n.translate(context, 'validator.isRequired');
     return null;
   }
 
   static String matchRegExp(BuildContext context, String value, RegExp regExp) {
     if (!regExp.hasMatch(value))
-      return AppLocalizations.of(context).translate('validator.matchRegExp');
+      return FlutterI18n.translate(context, 'validator.matchRegExp');
     return null;
   }
 
   static String isISOCode(BuildContext context, String value) {
     if (!isoCodeRegExp.hasMatch(value))
-      return AppLocalizations.of(context).translate('validator.isISOCode');
+      return FlutterI18n.translate(context, 'validator.isISOCode');
     return null;
   }
 
   static String isEmail(BuildContext context, String value) {
     if (!emailRegExp.hasMatch(value))
-      return AppLocalizations.of(context).translate('validator.isEmail');
+      return FlutterI18n.translate(context, 'validator.isEmail');
     return null;
   }
 
   static String isPort(BuildContext context, String value) {
     if (!portRegExp.hasMatch(value))
-      return AppLocalizations.of(context).translate('validator.isPort');
+      return FlutterI18n.translate(context, 'validator.isPort');
     return null;
   }
 
   static String isIP(BuildContext context, String value) {
     if (!ipRegExp.hasMatch(value))
-      return AppLocalizations.of(context).translate('validator.isIP');
+      return FlutterI18n.translate(context, 'validator.isIP');
     return null;
   }
 }

@@ -1,0 +1,33 @@
+{
+    "auth": {
+        "title": "Login",
+        "authenticating": "Authenticating",
+        "textField": {
+            "username": "Username",
+            "password": "Password"
+        },
+        "checkBox": {
+            "rememberMe": "Remember me"
+        },
+        "button": {
+            "login": "LOGIN"
+        }
+    },
+    "validator": {
+        "username": {
+            "pattern": "Username must only be alphanumeric",
+            "lenght": {
+                "min": "Username must be at least 5 characters long"
+            }
+        },
+        "password": {
+            "lenght": {
+                "min": "Password must be at least 5 characters long"
+            }
+        },
+        "ip": "Invalid ip address",
+        "port": "Invalid port",
+        "email": "Invalid e-mail address",
+        "isoCode": "Invalid ISO code"
+    }
+}
