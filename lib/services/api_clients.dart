@@ -25,12 +25,9 @@ class ApiClients {
       converter: BuiltValueConverter(),
       errorConverter: BuiltValueConverter(),
     );
-
-    final token = await FlutterSecureStorage().read(key: Token.secureStorageKey);
-    authorize(token);
   }
 
-  static void authorize(String token) {
+  static void authorize(Token token) {
     _authorized = ChopperClient(
       baseUrl: '$protocol://$address/v$version',
       services: [
@@ -40,7 +37,7 @@ class ApiClients {
       converter: BuiltValueConverter(),
       errorConverter: BuiltValueConverter(),
       interceptors: [
-        HeadersInterceptor({'Authorization': 'Bearer $token'}),
+        HeadersInterceptor({'Authorization': token.toString()}),
       ],
     );
   }

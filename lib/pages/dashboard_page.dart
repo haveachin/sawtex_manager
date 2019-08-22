@@ -52,8 +52,7 @@ class _DashboardPageState extends State<DashboardPage> {
               leading: Icon(Icons.exit_to_app),
               title: Text('Logout'),
               onTap: () async {
-                await FlutterSecureStorage()
-                    .delete(key: Token.secureStorageKey);
+                await Token.deleteFromSecureStorage();
                 Navigator.pushReplacementNamed(context, '/auth');
               },
             ),

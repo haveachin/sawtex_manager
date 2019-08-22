@@ -1,5 +1,9 @@
+import 'package:built_value/serializer.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
+import 'package:sawtex_manager/models/credentials.dart';
+import 'package:sawtex_manager/models/serializers.dart';
+import 'package:sawtex_manager/models/token.dart';
 
 @immutable
 abstract class AuthEvent extends Equatable {
@@ -7,13 +11,21 @@ abstract class AuthEvent extends Equatable {
 }
 
 class ValidateToken extends AuthEvent {
-  final String tokenString;
+  final Token token;
 
-  ValidateToken(this.tokenString) : super([tokenString]);
+  ValidateToken(this.token) : super([token]);
 }
 
 class Login extends AuthEvent {
-  final String username, password;
+  final Credentials credentials;
+  final bool rememberMe;
 
-  Login(this.username, this.password) : super([username, password]);
+  Login(this.credentials, this.rememberMe) : super([credentials, rememberMe]);
+
+  factory Login.fromMap(Map<String, dynamic> map) {
+    final credentials =
+        serializers.deserializeWith(Credentials.serializer, map);
+    final rememberMe = map['rememberMe'] ?? false;
+    return Login(credentials, rememberMe);
+  }
 }

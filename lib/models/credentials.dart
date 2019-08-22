@@ -15,7 +15,18 @@ abstract class Credentials implements Built<Credentials, CredentialsBuilder> {
 
   Credentials._();
 
-  factory Credentials([updates(CredentialsBuilder b)]) = _$Credentials;
+  factory Credentials._create([updates(CredentialsBuilder b)]) = _$Credentials;
+
+  factory Credentials.encode({String username, String password}) {
+    final bytes = utf8.encode(password);
+    password = base64.encode(bytes);
+
+    return Credentials._create(
+      (b) => b
+        ..username = username
+        ..password = password,
+    );
+  }
 
   String toJson() {
     return json.encode(serializers.serializeWith(Credentials.serializer, this));

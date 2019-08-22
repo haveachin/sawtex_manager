@@ -3,11 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sawtex_manager/blocs/auth_bloc/bloc.dart';
+import 'package:sawtex_manager/models/token.dart';
 import 'package:sawtex_manager/utils/toasts.dart';
 
 import '../../app_localizations.dart';
 
 class AuthPage extends StatefulWidget {
+  final Token token;
+
+  const AuthPage({Key key, this.token}) : super(key: key);
+
   @override
   State<StatefulWidget> createState() {
     return _AuthPageState();
@@ -18,6 +23,14 @@ class _AuthPageState extends State<AuthPage> {
   final _formBuilderKey = GlobalKey<FormBuilderState>();
   final _authBloc = AuthBloc();
   bool obscurePassword = true;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.token != null) {
+      _authBloc.dispatch(ValidateToken(widget.token));
+    }
+  }
 
   Widget _buildLogo(BuildContext context) {
     return Icon(
@@ -83,6 +96,18 @@ class _AuthPageState extends State<AuthPage> {
     );
   }
 
+  Widget _buildRememberMeCheckBox(BuildContext context) {
+    return FormBuilderCheckbox(
+      attribute: 'rememberMe',
+      label: Text(AppLocalizations.of(context).translate('auth.checkbox.rememberMe'),),
+      leadingInput: true,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.zero,
+        border: InputBorder.none,
+      ),
+    );
+  }
+
   Widget _buildLoginButton(BuildContext context) {
     return RaisedButton(
       child: Text(
@@ -97,10 +122,8 @@ class _AuthPageState extends State<AuthPage> {
     _formBuilderKey.currentState.save();
 
     final formData = _formBuilderKey.currentState.value;
-    final username = formData['username'];
-    final password = formData['password'];
 
-    _authBloc.dispatch(Login(username, password));
+    _authBloc.dispatch(Login.fromMap(formData));
   }
 
   Widget _buildLoginForm(BuildContext context) {
@@ -111,7 +134,8 @@ class _AuthPageState extends State<AuthPage> {
           _buildUsernameTextField(context),
           SizedBox(height: 16.0),
           _buildPasswordTextField(context),
-          SizedBox(height: 32.0),
+          _buildRememberMeCheckBox(context),
+          SizedBox(height: 16.0),
           SizedBox(
             width: double.infinity,
             child: _buildLoginButton(context),

@@ -1,8 +1,9 @@
 {
     "auth.title": "Login",
-    "auth.loading": "Logging in",
+    "auth.loading": "Authenticating",
     "auth.textField.username.hint": "Username",
     "auth.textField.password.hint": "Password",
+    "auth.checkbox.rememberMe": "Remember me",
     "auth.button.login": "LOGIN",
 
     "validator.username.pattern": "Username must only be alphanumeric",

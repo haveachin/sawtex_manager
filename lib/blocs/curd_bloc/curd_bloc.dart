@@ -14,7 +14,8 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
   CurdBloc._(this.apiService);
 
   factory CurdBloc([CurdService<T> apiService]) =>
-      CurdBloc._(apiService ?? CurdService.create<T>());
+      CurdBloc._(apiService ?? CurdService.create<T>()
+      );
 
   @override
   CurdState get initialState => InitialState();
@@ -50,7 +51,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
     } on Exception catch (_) {
-      state = ActionFailed(ApiError.couldNotReach(apiService.client.baseUrl));
+      state = ActionFailed(ApiError.couldNotReach(apiService));
     }
 
     return state;
@@ -65,7 +66,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
     } on Exception catch (_) {
-      state = ActionFailed(ApiError.couldNotReach(apiService.client.baseUrl));
+      state = ActionFailed(ApiError.couldNotReach(apiService));
     }
 
     return state;
@@ -80,7 +81,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
     } on Exception catch (_) {
-      state = ActionFailed(ApiError.couldNotReach(apiService.client.baseUrl));
+      state = ActionFailed(ApiError.couldNotReach(apiService));
     }
 
     return state;
@@ -95,7 +96,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
     } on Exception catch (_) {
-      state = ActionFailed(ApiError.couldNotReach(apiService.client.baseUrl));
+      state = ActionFailed(ApiError.couldNotReach(apiService));
     }
 
     return state;
@@ -110,7 +111,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
     } on Exception catch (_) {
-      state = ActionFailed(ApiError.couldNotReach(apiService.client.baseUrl));
+      state = ActionFailed(ApiError.couldNotReach(apiService));
     }
 
     return state;

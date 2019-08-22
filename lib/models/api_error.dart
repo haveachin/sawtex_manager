@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:built_value/built_value.dart';
 import 'package:built_value/serializer.dart';
+import 'package:chopper/chopper.dart';
 
 import 'serializers.dart';
 
@@ -18,12 +19,12 @@ abstract class ApiError implements Built<ApiError, ApiErrorBuilder> {
 
   factory ApiError([updates(ApiErrorBuilder b)]) = _$ApiError;
 
-  factory ApiError.couldNotReach(String host) {
+  factory ApiError.couldNotReach(ChopperService service) {
     return ApiError(
       (b) => b
         ..status = 503
         ..timestamp = DateTime.now().toUtc()
-        ..message = "Could not reach $host.",
+        ..message = "Could not reach ${service.client.baseUrl}.",
     );
   }
 

@@ -92,14 +92,6 @@ class _$Token extends Token {
   int get hashCode {
     return $jf($jc($jc(0, token.hashCode), expiresAt.hashCode));
   }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('Token')
-          ..add('token', token)
-          ..add('expiresAt', expiresAt))
-        .toString();
-  }
 }
 
 class TokenBuilder implements Builder<Token, TokenBuilder> {

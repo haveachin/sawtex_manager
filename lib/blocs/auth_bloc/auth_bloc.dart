@@ -14,7 +14,6 @@ import 'bloc.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final authApiService = AuthApiService.create(ApiClients.login);
-  final storage = FlutterSecureStorage();
 
   @override
   AuthState get initialState => AuthInitial();
@@ -25,54 +24,45 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   ) async* {
     if (event is ValidateToken) {
       yield LoggingIn();
-      yield await _validateToken();
+      yield await _validateToken(event.token);
     } else if (event is Login) {
       yield LoggingIn();
-      yield await _login(event.username, event.password);
+      yield await _login(event.credentials, event.rememberMe);
     }
   }
 
-  Future<AuthState> _validateToken() async {
+  Future<AuthState> _validateToken(Token token) async {
     AuthState state;
 
     try {
-      final String tokenString =
-          await storage.read(key: Token.secureStorageKey);
-      await authApiService.validateToken('Bearer $tokenString');
-      ApiClients.authorize(tokenString);
+      await authApiService.validateToken(token.toString());
+      ApiClients.authorize(token);
       state = LoggedIn();
     } on Response<ApiError> catch (response) {
       state = LoginFailed(response.body);
     } on Exception catch (_) {
-      state =
-          LoginFailed(ApiError.couldNotReach(authApiService.client.baseUrl));
+      state = LoginFailed(ApiError.couldNotReach(authApiService));
     }
+
     return state;
   }
 
-  Future<AuthState> _login(String username, String password) async {
-    final bytes = utf8.encode(password);
-    password = base64.encode(bytes);
-
-    final credentials = Credentials(
-      (b) => b
-        ..username = username
-        ..password = password,
-    );
-
+  Future<AuthState> _login(Credentials credentials, bool rememberMe) async {
     AuthState state;
+
+    credentials = Credentials.encode(
+        username: credentials.username, password: credentials.password);
 
     try {
       final response = await authApiService.loginAdmin(credentials);
-      final tokenString = response.body.token;
-      storage.write(key: Token.secureStorageKey, value: tokenString);
-      ApiClients.authorize(tokenString);
+      final token = response.body;
+      if (rememberMe) token.saveToSecureStorage();
+      ApiClients.authorize(token);
       state = LoggedIn();
     } on Response<ApiError> catch (response) {
       state = LoginFailed(response.body);
     } on Exception catch (_) {
-      state =
-          LoginFailed(ApiError.couldNotReach(authApiService.client.baseUrl));
+      state = LoginFailed(ApiError.couldNotReach(authApiService));
     }
 
     return state;

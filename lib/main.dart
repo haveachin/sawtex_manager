@@ -42,19 +42,15 @@ class MyApp extends StatelessWidget {
         ],
         localeResolutionCallback: _localeResolutionCallback,
         home: FutureBuilder(
-          future: FlutterSecureStorage().read(key: Token.secureStorageKey),
-          builder: (context, snapshot) {
+          future: Token.formSecureStorage(),
+          builder: (BuildContext context, AsyncSnapshot<Token> snapshot) {
             if (snapshot.connectionState != ConnectionState.done) {
               return Center(
                 child: CircularProgressIndicator(),
               );
             }
-
-            if (snapshot.data == null || snapshot.error != null) {
-              return AuthPage();
-            }
-
-            return DashboardPage();
+            
+            return AuthPage(token: snapshot.data);
           },
         ),
         routes: {
