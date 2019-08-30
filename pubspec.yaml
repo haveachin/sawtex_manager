@@ -27,7 +27,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
-  flutter_bloc: ^0.20.0
+  flutter_bloc: ^0.21.0
   equatable: ^0.3.0
   chopper: ^2.4.1
   built_value: ^6.6.0
@@ -36,6 +36,7 @@ dependencies:
   #simple_autocomplete_formfield: ^0.2.4
   flutter_form_builder: ^3.3.4
   flutter_i18n: ^0.6.4
+  barcode_scan: ^0.0.3
 
 dev_dependencies:
   flutter_test:

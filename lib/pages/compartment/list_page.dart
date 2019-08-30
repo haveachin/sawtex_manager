@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/bloc.dart';
-import 'package:sawtex_manager/models/machine.dart';
+import 'package:sawtex_manager/models/compartment.dart';
 import 'package:sawtex_manager/widgets/curd_list_view_editable.dart';
 
 import 'edit_page.dart';
 
-class MachineListPage extends StatelessWidget {
-  Widget _buildListView(BuildContext context, List<Machine> cities) {
-    return CurdListViewEditable<Machine>(
+class CompartmentListPage extends StatelessWidget {
+  Widget _buildListView(BuildContext context, List<Compartment> cities) {
+    return CurdListViewEditable<Compartment>(
       items: cities,
-      onEdit: (Machine machine) => Navigator.of(context).push(
+      onEdit: (Compartment compartment) => Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (BuildContext context) => MachineEditPage(
-            machine: machine,
+          builder: (BuildContext context) => CompartmentEditPage(
+            compartment: compartment,
           ),
         ),
       ),
-      subtitleBuilder: (Machine machine) => Text(machine.ip),
-      tileIcon: Icon(Icons.dns),
-      titelBuilder: (Machine machine) => (machine?.description != null && machine.description.isNotEmpty)
-          ? Text(machine?.description)
+      subtitleBuilder: (Compartment compartment) => Text(compartment.code.toString()),
+      tileIcon: Icon(Icons.crop_16_9),
+      titelBuilder: (Compartment compartment) => (compartment?.description != null && compartment.description.isNotEmpty)
+          ? Text(compartment?.description)
           : Text(
               "No Description",
               style: TextStyle(
@@ -33,13 +33,13 @@ class MachineListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<CurdBloc<Machine>>(
+    return BlocProvider<CurdBloc<Compartment>>(
       builder: (BuildContext context) {
-        final bloc = CurdBloc<Machine>();
+        final bloc = CurdBloc<Compartment>();
         bloc.dispatch(GetMany());
         return bloc;
       },
-      child: BlocBuilder<CurdBloc<Machine>, CurdState>(
+      child: BlocBuilder<CurdBloc<Compartment>, CurdState>(
         builder: (BuildContext context, CurdState state) {
           if (state is LoadedMany) {
             return _buildListView(context, state.items.toList());

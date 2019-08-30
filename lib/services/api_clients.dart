@@ -4,6 +4,7 @@ import 'package:sawtex_manager/models/token.dart';
 
 import 'auth_api_service.dart';
 import 'built_value_converter.dart';
+import 'compartment_api_service.dart';
 import 'machine_api_service.dart';
 
 class ApiClients {
@@ -33,6 +34,7 @@ class ApiClients {
       services: [
         //CityApiService.create(),
         MachineApiService.create(),
+        CompartmentApiService.create(),
       ],
       converter: BuiltValueConverter(),
       errorConverter: BuiltValueConverter(),

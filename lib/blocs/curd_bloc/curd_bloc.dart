@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:chopper/chopper.dart';
@@ -26,23 +27,23 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
   ) async* {
     if (event is AddOne) {
       yield AddingOne();
-      yield await _addOne(event.item);
+      yield await addOne(event.item);
     } else if (event is GetOne) {
       yield LoadingOne();
-      yield await _getOne(event.id);
+      yield await getOne(event.id);
     } else if (event is GetMany) {
       yield LoadingMany();
-      yield await _getMany();
+      yield await getMany(event.filter);
     } else if (event is UpdateOne) {
       yield UpdatingOne();
-      yield await _updateOne(event.item);
+      yield await updateOne(event.item);
     } else if (event is DeleteOne) {
       yield DeletingOne();
-      yield await _deleteOne(event.id);
+      yield await deleteOne(event.id);
     }
   }
 
-  Future<CurdState> _addOne(T item) async {
+  Future<CurdState> addOne(T item) async {
     CurdState state;
 
     try {
@@ -57,7 +58,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     return state;
   }
 
-  Future<CurdState> _getOne(String id) async {
+  Future<CurdState> getOne(String id) async {
     CurdState state;
 
     try {
@@ -72,11 +73,13 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     return state;
   }
 
-  Future<CurdState> _getMany() async {
+  Future<CurdState> getMany(Map<String, dynamic> filter) async {
     CurdState state;
 
+    final filterJSON = jsonEncode(filter);
+
     try {
-      final response = await apiService.readMany();
+      final response = await apiService.readMany(filterJSON);
       state = LoadedMany(response.body);
     } on Response<ApiError> catch (response) {
       state = ActionFailed(response.body);
@@ -87,7 +90,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     return state;
   }
 
-  Future<CurdState> _updateOne(T item) async {
+  Future<CurdState> updateOne(T item) async {
     CurdState state;
 
     try {
@@ -102,7 +105,7 @@ class CurdBloc<T extends CurdModel> extends Bloc<CurdEvent, CurdState> {
     return state;
   }
 
-  Future<CurdState> _deleteOne(String id) async {
+  Future<CurdState> deleteOne(String id) async {
     CurdState state;
 
     try {

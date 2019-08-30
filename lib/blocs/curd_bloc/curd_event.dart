@@ -27,7 +27,11 @@ class GetOne extends CurdEvent {
   GetOne(this.id);
 }
 
-class GetMany extends CurdEvent {}
+class GetMany extends CurdEvent {
+  final Map<String, dynamic> filter;
+
+  GetMany([this.filter]);
+}
 
 class UpdateOne<T extends CurdModel> extends CurdEvent {
   final T item;

@@ -4,6 +4,7 @@ import 'package:built_value/iso_8601_date_time_serializer.dart';
 import 'package:built_value/serializer.dart';
 import 'package:built_value/standard_json_plugin.dart';
 import 'package:built_collection/built_collection.dart';
+import 'package:sawtex_manager/models/compartment.dart';
 import 'package:sawtex_manager/models/machine.dart';
 
 import 'api_error.dart';
@@ -15,6 +16,7 @@ part 'serializers.g.dart';
 @SerializersFor(const [
   ApiError,
   Credentials,
+  Compartment,
   Machine,
   Token,
 ])

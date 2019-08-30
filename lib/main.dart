@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_i18n/flutter_i18n_delegate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:oktoast/oktoast.dart';
+import 'package:sawtex_manager/pages/compartment/page.dart';
 
 import 'models/token.dart';
 import 'pages/machine/page.dart';
@@ -12,6 +14,7 @@ import 'pages/dashboard_page.dart';
 
 void main() async {
   //debugPaintSizeEnabled = true;
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await ApiClients.init();
   runApp(MyApp());
   //ApiClients.dispose();
@@ -60,6 +63,7 @@ class MyApp extends StatelessWidget {
           '/auth': (BuildContext context) => AuthPage(),
           '/dashboard': (BuildContext context) => DashboardPage(),
           '/machine': (BuildContext context) => MachinePage(),
+          '/compartment': (BuildContext context) => CompartmentPage(),
           //'/city': (BuildContext context) => CityPage(),
           //'/user': (BuildContext context) => UserPage(),
           //'/roles': (BuildContext context) => RoleManagerPage(),

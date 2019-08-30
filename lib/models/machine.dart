@@ -10,7 +10,7 @@ import 'serializers.dart';
 
 part 'machine.g.dart';
 
-abstract class Machine implements Built<Machine, MachineBuilder>, CurdModel  {
+abstract class Machine implements Built<Machine, MachineBuilder>, CurdModel {
   @nullable
   String get id;
   @nullable
@@ -23,6 +23,7 @@ abstract class Machine implements Built<Machine, MachineBuilder>, CurdModel  {
   DateTime get updatedAt;
   @nullable
   DateTime get deletedAt;
+  @nullable
   String get description;
   String get ip;
   int get port;
@@ -36,8 +37,12 @@ abstract class Machine implements Built<Machine, MachineBuilder>, CurdModel  {
   }
 
   static Machine fromJson(String jsonString) {
-    return serializers.deserializeWith(Machine.serializer, json.decode(jsonString));
+    return serializers.deserializeWith(
+        Machine.serializer, json.decode(jsonString));
   }
 
   static Serializer<Machine> get serializer => _$machineSerializer;
+
+  @override
+  String toString() => description ?? 'No Description';
 }

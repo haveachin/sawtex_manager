@@ -40,6 +40,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       state = LoggedIn();
     } on Response<ApiError> catch (response) {
       state = LoginFailed(response.body);
+      Token.deleteFromSecureStorage();
     } on Exception catch (_) {
       state = LoginFailed(ApiError.couldNotReach(authApiService));
     }

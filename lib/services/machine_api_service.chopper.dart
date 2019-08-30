@@ -20,8 +20,8 @@ class _$MachineApiService extends MachineApiService {
     return client.send<Machine, Machine>($request);
   }
 
-  Future<Response<BuiltList<Machine>>> readMany() {
-    final $url = '/machines';
+  Future<Response<BuiltList<Machine>>> readMany(String filter) {
+    final $url = '/machines/?filter=${filter}';
     final $request = Request('GET', $url, client.baseUrl);
     return client.send<BuiltList<Machine>, Machine>($request);
   }

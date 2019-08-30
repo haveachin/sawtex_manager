@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/bloc.dart';
 import 'package:sawtex_manager/models/machine.dart';
-import 'package:sawtex_manager/utils/validator.dart';
 import 'package:sawtex_manager/widgets/curd_form.dart';
 
 class MachineEditPage extends StatelessWidget {
@@ -14,51 +14,48 @@ class MachineEditPage extends StatelessWidget {
   Widget _buildForm(BuildContext context) {
     return CurdForm<Machine>(
       initialValue: machine,
-      builder: (Map<String, dynamic> formData) => Column(
+      builder: () => Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Flexible(
-                flex: 3,
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'IP-Address',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
-                  initialValue: machine?.ip,
-                  validator: (value) => Validator.isIP(context, value),
-                  onSaved: (String value) => formData['ip'] = value,
-                ),
-              ),
-              SizedBox(
-                width: 10.0,
-              ),
-              Flexible(
-                child: TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Port',
-                    border: OutlineInputBorder(),
-                  ),
-                  keyboardType: TextInputType.number,
-                  autovalidate: true,
-                  initialValue: machine?.port?.toString() ?? "",
-                  validator: (value) => Validator.isPort(context, value),
-                  onSaved: (String value) =>
-                      formData['port'] = int.parse(value),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 10.0),
-          TextFormField(
+          FormBuilderTextField(
+            attribute: 'ip',
             decoration: InputDecoration(
-              labelText: 'Name',
+              labelText: 'IP-Address*',
               border: OutlineInputBorder(),
             ),
-            initialValue: machine?.description,
-            validator: (value) => Validator.isRequired(context, value),
-            onSaved: (String value) => formData['description'] = value,
+            keyboardType: TextInputType.number,
+            initialValue: machine?.ip,
+            validators: [
+              FormBuilderValidators.required(),
+              FormBuilderValidators.IP(),
+            ],
+          ),
+          SizedBox(
+            height: 10.0,
+          ),
+          FormBuilderTextField(
+            attribute: 'port',
+            decoration: InputDecoration(
+              labelText: 'Port*',
+              border: OutlineInputBorder(),
+            ),
+            keyboardType: TextInputType.number,
+            initialValue: machine?.port?.toString() ?? "",
+            valueTransformer: (value) => int.parse(value),
+            validators: [
+              FormBuilderValidators.required(),
+              FormBuilderValidators.numeric(),
+              FormBuilderValidators.min(0),
+              FormBuilderValidators.max(65535),
+            ],
+          ),
+          SizedBox(height: 16.0),
+          FormBuilderTextField(
+            attribute: 'description',
+            decoration: InputDecoration(
+              labelText: 'Description',
+              border: OutlineInputBorder(),
+            ),
+            initialValue: machine?.description ?? "",
           ),
         ],
       ),
@@ -75,7 +72,7 @@ class MachineEditPage extends StatelessWidget {
         ),
         body: BlocListener<CurdBloc<Machine>, CurdState>(
           listener: (BuildContext context, CurdState state) {
-            if (state is UpdatedOne) {
+            if (state is AddedOne || state is UpdatedOne) {
               Navigator.pop(context);
             }
           },
