@@ -65,6 +65,7 @@ class _CurdTypeAheadFieldState<T extends CurdModel>
   }
 
   void _deselectItem() {
+    widget?.onChanged(null);
     _item = null;
     setState(() => _editing = true);
     FocusScope.of(context).requestFocus(_focusNode);
@@ -107,9 +108,7 @@ class _CurdTypeAheadFieldState<T extends CurdModel>
     return BlocListener(
       bloc: _bloc,
       listener: (BuildContext context, CurdState state) {
-        if (state is LoadedOne) {
-          _item = state.item;
-        }
+        if (state is LoadedOne) _item = state.item;
       },
       child: BlocBuilder(
         bloc: _bloc,

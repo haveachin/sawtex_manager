@@ -4,6 +4,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/bloc.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/curd_model.dart';
 import 'package:sawtex_manager/utils/toasts.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 
 class CurdForm<T extends CurdModel> extends StatefulWidget {
   final CurdBloc<T> bloc;
@@ -26,9 +27,11 @@ class _CurdFormState<T extends CurdModel> extends State<CurdForm> {
   final _formBuilderKey = GlobalKey<FormBuilderState>();
 
   Widget _buildSubmitButton(BuildContext context) {
-    final bloc = BlocProvider.of<CurdBloc<T>>(context);
+    final bloc = widget.bloc ?? BlocProvider.of<CurdBloc<T>>(context);
     return RaisedButton(
-      child: Text((widget?.initialValue == null) ? 'CREATE' : 'SAVE'),
+      child: Text((widget?.initialValue == null)
+          ? Translation.of(context).create.toUpperCase()
+          : Translation.of(context).save.toUpperCase()),
       onPressed: () => _onSubmit(bloc),
     );
   }
@@ -40,6 +43,8 @@ class _CurdFormState<T extends CurdModel> extends State<CurdForm> {
 
     final formData = _formBuilderKey.currentState.value;
     formData['id'] = widget?.initialValue?.id;
+
+    print(formData);
 
     if (widget?.initialValue == null)
       bloc.dispatch(AddOne<T>.fromMap(formData));

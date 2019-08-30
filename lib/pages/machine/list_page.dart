@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/bloc.dart';
 import 'package:sawtex_manager/models/machine.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 import 'package:sawtex_manager/widgets/curd_list_view_editable.dart';
 
 import 'edit_page.dart';
@@ -22,7 +23,7 @@ class MachineListPage extends StatelessWidget {
       titelBuilder: (Machine machine) => (machine?.description != null && machine.description.isNotEmpty)
           ? Text(machine?.description)
           : Text(
-              "No Description",
+              Translation.of(context).noDescription,
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 color: Colors.grey,

@@ -41,7 +41,7 @@ class _AuthPageState extends State<AuthPage> {
 
   Widget _buildTitle(BuildContext context) {
     return Text(
-      Translation.of(context).authTitle,
+      Translation.of(context).authPageTitle,
       style: Theme.of(context).textTheme.title,
     );
   }
@@ -50,7 +50,7 @@ class _AuthPageState extends State<AuthPage> {
     return FormBuilderTextField(
       attribute: 'username',
       decoration: InputDecoration(
-        labelText: Translation.of(context).authTextFieldUsername,
+        labelText: Translation.of(context).username,
         border: OutlineInputBorder(),
         prefixIcon: Icon(Icons.person),
       ),
@@ -72,7 +72,7 @@ class _AuthPageState extends State<AuthPage> {
       attribute: 'password',
       obscureText: obscurePassword,
       decoration: InputDecoration(
-        labelText: Translation.of(context).authTextFieldPassword,
+        labelText: Translation.of(context).password,
         border: OutlineInputBorder(),
         prefixIcon: Icon(Icons.lock),
         suffixIcon: IconButton(
@@ -94,7 +94,7 @@ class _AuthPageState extends State<AuthPage> {
     return FormBuilderCheckbox(
       attribute: 'rememberMe',
       label: Text(
-        Translation.of(context).authCheckBoxRememberMe,
+        Translation.of(context).rememberMe,
       ),
       leadingInput: true,
       decoration: InputDecoration(
@@ -108,7 +108,7 @@ class _AuthPageState extends State<AuthPage> {
   Widget _buildLoginButton(BuildContext context) {
     return RaisedButton(
       child: Text(
-        Translation.of(context).authButtonLogin,
+        Translation.of(context).login.toUpperCase(),
       ),
       onPressed: () => _submitForm(context),
     );
@@ -150,7 +150,7 @@ class _AuthPageState extends State<AuthPage> {
           margin: EdgeInsets.only(bottom: 16.0),
           padding: EdgeInsets.symmetric(horizontal: 16.0),
           child: Text(
-            Translation.of(context).authAuthenticating,
+            Translation.of(context).authenticating,
             style: Theme.of(context).textTheme.title,
           ),
         ),

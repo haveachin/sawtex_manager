@@ -44,4 +44,7 @@ abstract class Compartment implements Built<Compartment, CompartmentBuilder>, Cu
   }
 
   static Serializer<Compartment> get serializer => _$compartmentSerializer;
+  
+  @override
+  String toString() => description ?? 'No Description';
 }

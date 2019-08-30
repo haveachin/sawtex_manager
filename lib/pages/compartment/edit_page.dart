@@ -5,6 +5,7 @@ import 'package:convert/convert.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/bloc.dart';
 import 'package:sawtex_manager/models/compartment.dart';
 import 'package:sawtex_manager/models/machine.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 import 'package:sawtex_manager/widgets/barcode_fields/form_builder_barcode_field.dart';
 import 'package:sawtex_manager/widgets/curd_form.dart';
 import 'package:sawtex_manager/widgets/curd_type_ahead_fields/form_builder_curd_type_ahead.dart';
@@ -21,7 +22,7 @@ class CompartmentEditPage extends StatelessWidget {
         children: <Widget>[
           FormBuilderCurdTypeAhead<Machine>(
             attribute: 'machineId',
-            hintText: 'Machine',
+            hintText: Translation.of(context).machine,
             initialId: compartment?.machineId,
             icon: Icon(Icons.dns),
             patternFilter: (String pattern) => {
@@ -29,15 +30,12 @@ class CompartmentEditPage extends StatelessWidget {
                 '\$regex': pattern,
               }
             },
-            validators: [
-              FormBuilderValidators.required(),
-            ],
           ),
           SizedBox(height: 16.0),
           FormBuilderTextField(
             attribute: 'description',
             decoration: InputDecoration(
-              labelText: 'Description',
+              labelText: '${Translation.of(context).description}*',
               border: OutlineInputBorder(),
             ),
             initialValue: compartment?.description ?? "",
@@ -46,7 +44,7 @@ class CompartmentEditPage extends StatelessWidget {
           FormBuilderBarcodeField(
             attribute: 'code',
             initialValue: hex.encode(compartment?.code?.toList() ?? []),
-            hintText: 'Code',
+            hintText: '${Translation.of(context).code}*',
             valueTransformer: (value) => hex.decode(value),
             validators: [
               FormBuilderValidators.required(),
@@ -65,7 +63,7 @@ class CompartmentEditPage extends StatelessWidget {
       builder: (context) => CurdBloc<Compartment>(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(compartment?.description ?? 'New Compartment'),
+          title: Text(compartment?.description ?? Translation.of(context).compartmentPageTitleNew),
         ),
         body: BlocListener<CurdBloc<Compartment>, CurdState>(
           listener: (BuildContext context, CurdState state) {

@@ -19,15 +19,8 @@ class CompartmentListPage extends StatelessWidget {
       ),
       subtitleBuilder: (Compartment compartment) => Text(compartment.code.toString()),
       tileIcon: Icon(Icons.crop_16_9),
-      titelBuilder: (Compartment compartment) => (compartment?.description != null && compartment.description.isNotEmpty)
-          ? Text(compartment?.description)
-          : Text(
-              "No Description",
-              style: TextStyle(
-                fontStyle: FontStyle.italic,
-                color: Colors.grey,
-              ),
-            ),
+      titelBuilder: (Compartment compartment) => Text(compartment.toString())
+          
     );
   }
 

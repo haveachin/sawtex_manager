@@ -1,18 +1,4 @@
 {
-    "auth": {
-        "title": "Login",
-        "authenticating": "Authenticating",
-        "textField": {
-            "username": "Username",
-            "password": "Password"
-        },
-        "checkBox": {
-            "rememberMe": "Remember me"
-        },
-        "button": {
-            "login": "LOGIN"
-        }
-    },
     "validator": {
         "username": {
             "pattern": "Username must only be alphanumeric",
@@ -29,5 +15,41 @@
         "port": "Invalid port",
         "email": "Invalid e-mail address",
         "isoCode": "Invalid ISO code"
+    },
+    "authPage": {
+        "title": "Login"
+    },
+    "dashboardPage": {
+        "title": "Dashboard"
+    },
+    "machinePage": {
+        "title": "Machine Page",
+        "titleNew": "New Machine"
+    },
+    "compartmentPage": {
+        "title": "Compartment Page",
+        "titleNew": "New Compartment"
+    },
+    "words": {
+        "create": "Create",
+        "save": "Save",
+        "delete": "Delete",
+        "machine": "Machine",
+        "compartment": "Compartment",
+        "choose": "Choose",
+        "description": "Description",
+        "noDescription": "No Description",
+        "ipAddress": "IP-Address",
+        "port": "Port",
+        "logout": "Logout",
+        "login": "Login",
+        "hoursLeft": "hours left",
+        "minutesLeft": "minutes left",
+        "placeholder": "Nothing here yet",
+        "username": "Username",
+        "password": "Password",
+        "rememberMe": "Remember me",
+        "authenticating": "Authenticating",
+        "code": "Code"
     }
 }

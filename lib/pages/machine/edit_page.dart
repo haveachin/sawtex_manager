@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:sawtex_manager/blocs/curd_bloc/bloc.dart';
 import 'package:sawtex_manager/models/machine.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 import 'package:sawtex_manager/widgets/curd_form.dart';
 
 class MachineEditPage extends StatelessWidget {
@@ -19,7 +20,7 @@ class MachineEditPage extends StatelessWidget {
           FormBuilderTextField(
             attribute: 'ip',
             decoration: InputDecoration(
-              labelText: 'IP-Address*',
+              labelText: '${Translation.of(context).ipAddress}*',
               border: OutlineInputBorder(),
             ),
             keyboardType: TextInputType.number,
@@ -35,7 +36,7 @@ class MachineEditPage extends StatelessWidget {
           FormBuilderTextField(
             attribute: 'port',
             decoration: InputDecoration(
-              labelText: 'Port*',
+              labelText: '${Translation.of(context).port}*',
               border: OutlineInputBorder(),
             ),
             keyboardType: TextInputType.number,
@@ -52,7 +53,7 @@ class MachineEditPage extends StatelessWidget {
           FormBuilderTextField(
             attribute: 'description',
             decoration: InputDecoration(
-              labelText: 'Description',
+              labelText: '${Translation.of(context).description}*',
               border: OutlineInputBorder(),
             ),
             initialValue: machine?.description ?? "",
@@ -68,7 +69,7 @@ class MachineEditPage extends StatelessWidget {
       builder: (context) => CurdBloc<Machine>(),
       child: Scaffold(
         appBar: AppBar(
-          title: Text(machine?.description ?? 'New Machine'),
+          title: Text(machine?.description ?? Translation.of(context).machinePageTitleNew),
         ),
         body: BlocListener<CurdBloc<Machine>, CurdState>(
           listener: (BuildContext context, CurdState state) {

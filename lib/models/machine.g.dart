@@ -18,6 +18,9 @@ class _$MachineSerializer implements StructuredSerializer<Machine> {
   Iterable serialize(Serializers serializers, Machine object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object>[
+      'description',
+      serializers.serialize(object.description,
+          specifiedType: const FullType(String)),
       'ip',
       serializers.serialize(object.ip, specifiedType: const FullType(String)),
       'port',
@@ -58,12 +61,6 @@ class _$MachineSerializer implements StructuredSerializer<Machine> {
         ..add('deletedAt')
         ..add(serializers.serialize(object.deletedAt,
             specifiedType: const FullType(DateTime)));
-    }
-    if (object.description != null) {
-      result
-        ..add('description')
-        ..add(serializers.serialize(object.description,
-            specifiedType: const FullType(String)));
     }
     return result;
   }
@@ -156,6 +153,9 @@ class _$Machine extends Machine {
       this.ip,
       this.port})
       : super._() {
+    if (description == null) {
+      throw new BuiltValueNullFieldError('Machine', 'description');
+    }
     if (ip == null) {
       throw new BuiltValueNullFieldError('Machine', 'ip');
     }

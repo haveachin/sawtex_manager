@@ -15,7 +15,7 @@ abstract class CompartmentApiService extends ChopperService implements CurdServi
     @Path('id') String id,
   );
   
-  @Get(path: '/?filter={filter}')
+  @Get(path: '?filter={filter}')
   Future<Response<BuiltList<Compartment>>> readMany(@Path('filter') String filter);
 
   @Post()

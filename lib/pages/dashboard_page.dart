@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sawtex_manager/models/token.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 
 class DashboardPage extends StatefulWidget {
   @override
@@ -17,16 +18,16 @@ class _DashboardPageState extends State<DashboardPage> {
           children: <Widget>[
             AppBar(
               automaticallyImplyLeading: false,
-              title: Text('Choose'),
+              title: Text(Translation.of(context).choose),
             ),
             ListTile(
               leading: Icon(Icons.dns),
-              title: Text('Machine'),
+              title: Text(Translation.of(context).machine),
               onTap: () async => Navigator.pushNamed(context, '/machine'),
             ),
             ListTile(
               leading: Icon(Icons.crop_16_9),
-              title: Text('Compartment'),
+              title: Text(Translation.of(context).compartment),
               onTap: () async => Navigator.pushNamed(context, '/compartment'),
             ),
             Flexible(
@@ -37,12 +38,10 @@ class _DashboardPageState extends State<DashboardPage> {
         ),
       ),
       appBar: AppBar(
-        title: Text('Dashboard'),
+        title: Text(Translation.of(context).dashboardPageTitle),
       ),
       body: Center(
-        child: Text(
-          'Nothing here yet',
-        ),
+        child: Text(Translation.of(context).placeholder),
       ),
     );
   }
@@ -57,7 +56,7 @@ class _DashboardPageState extends State<DashboardPage> {
             return Row(
               children: <Widget>[
                 Expanded(
-                  child: Text('Logout'),
+                  child: Text(Translation.of(context).logout),
                 ),
                 CircularProgressIndicator(),
               ],
@@ -67,22 +66,22 @@ class _DashboardPageState extends State<DashboardPage> {
           final token = snapshot.data;
 
           if (token == null || snapshot.error != null) {
-            return Text('Logout');
+            return Text(Translation.of(context).logout);
           }
 
           final expiresIn = token.expiresAt.difference(DateTime.now());
           final hoursLeft = expiresIn.inHours;
-          String message = '$hoursLeft hours left';
+          String message = '$hoursLeft ${Translation.of(context).hoursLeft}';
 
           if (hoursLeft == 0) {
             final minutesLeft = expiresIn.inMinutes;
-            message = '$minutesLeft minutes left';
+            message = '$minutesLeft ${Translation.of(context).minutesLeft}';
           }
 
           return Row(
             children: <Widget>[
               Expanded(
-                child: Text('Logout'),
+                child: Text(Translation.of(context).logout),
               ),
               Text(
                 message,

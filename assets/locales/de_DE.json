@@ -1,19 +1,5 @@
 {
-    "auth": {
-        "title": "Anmeldung",
-        "authenticating": "Authentifiziere",
-        "textField": {
-            "username": "Benutzername",
-            "password": "Passwort"
-        },
-        "checkBox": {
-            "rememberMe": "Angemeldet bleiben"
-        },
-        "button": {
-            "login": "ANMELDEN"
-        }
-    },
-    "validator": {
+        "validator": {
         "username": {
             "pattern": "Der Benutzername darf nur alphanumerisch sein",
             "lenght": {
@@ -29,5 +15,41 @@
         "port": "Ungültiger Port",
         "email": "Ungültige E-Mail",
         "isoCode": "Ungültiger ISO-Code"
+    },
+    "authPage": {
+        "title": "Anmeldung"
+    },
+    "dashboardPage": {
+        "title": "Übersicht"
+    },
+    "machinePage": {
+        "title": "Automaten",
+        "titleNew": "Neuer Automat"
+    },
+    "compartmentPage": {
+        "title": "Fächer",
+        "titleNew": "Neues Fach"
+    },
+    "words": {
+        "create": "Anlegen",
+        "save": "Speichern",
+        "delete": "Löschen",
+        "machine": "Automat",
+        "compartment": "Fach",
+        "choose": "Wähle",
+        "description": "Beschreibung",
+        "noDescription": "Keine Beschreibung",
+        "ipAddress": "IP-Adresse",
+        "port": "Port",
+        "logout": "Abmelden",
+        "login": "Anmelden",
+        "hoursLeft": "Stunden übrig",
+        "minutesLeft": "Minuten übrig",
+        "placeholder": "Hier ist noch nichts",
+        "username": "Benutzername",
+        "password": "Passwort",
+        "rememberMe": "Angemeldet bleiben",
+        "authenticating": "Authentifiziere",
+        "code": "Code"
     }
 }

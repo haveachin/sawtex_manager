@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sawtex_manager/utils/translation.dart';
 
 class ListTileDismissible extends StatelessWidget {
   final Widget child;
@@ -22,7 +23,7 @@ class ListTileDismissible extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.end,
           children: <Widget>[
             Text(
-              'DELETE',
+              Translation.of(context).delete.toUpperCase(),
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 18,

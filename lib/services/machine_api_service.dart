@@ -15,7 +15,7 @@ abstract class MachineApiService extends ChopperService implements CurdService<M
     @Path('id') String id,
   );
   
-  @Get(path: '/?filter={filter}')
+  @Get(path: '?filter={filter}')
   Future<Response<BuiltList<Machine>>> readMany(@Path('filter') String filter);
 
   @Post()

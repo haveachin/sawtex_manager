@@ -23,7 +23,6 @@ abstract class Machine implements Built<Machine, MachineBuilder>, CurdModel {
   DateTime get updatedAt;
   @nullable
   DateTime get deletedAt;
-  @nullable
   String get description;
   String get ip;
   int get port;

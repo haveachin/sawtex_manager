@@ -208,21 +208,6 @@ class _$Compartment extends Compartment {
             relay1.hashCode),
         relay2.hashCode));
   }
-
-  @override
-  String toString() {
-    return (newBuiltValueToStringHelper('Compartment')
-          ..add('id', id)
-          ..add('machineId', machineId)
-          ..add('clothingId', clothingId)
-          ..add('updatedAt', updatedAt)
-          ..add('deletedAt', deletedAt)
-          ..add('description', description)
-          ..add('code', code)
-          ..add('relay1', relay1)
-          ..add('relay2', relay2))
-        .toString();
-  }
 }
 
 class CompartmentBuilder implements Builder<Compartment, CompartmentBuilder> {
